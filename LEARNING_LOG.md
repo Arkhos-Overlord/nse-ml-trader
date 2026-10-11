@@ -58,6 +58,9 @@ Verified: Kite instrument master (9MB) downloads keyless and confirms Nifty futu
 ### L10 — Contract specs drift; re-verify lot size
 Nifty futures/options lot was **75** in the 2024-2025 datasets but is **65** in current Kite master. Any PnL using the old lot overstates by 75/65 = 1.15×. Always re-pull lot size from the live instrument file before sizing.
 
+### L11 — UNBLOCK: INDmoney MCP provides clean synchronized intraday data (₹0)
+Connected INDmoney MCP (Indian app, free, **read-only**, OAuth 2.1+PKCE — no keys to manage). 22 tools incl. `lookup_ind_keys` + `get_indian_stocks_ohlc` (1min–30min up to 7d, 1day–1month up to 1y) covering indices, futures, options, stocks. Built `indmoney_client.py` (JSON-RPC over Hermes's cached OAuth token). **Verified clean:** Nifty futures 1-min mean |step| = 4.9–5.2 pts (vs ±80pt fake jumps from parity reconstruction). Daily OHLC cross-checks exactly against nsepython. Futures directly available (NIFTY Oct/Nov/Dec). This replaces the contaminated HuggingFace option files for anything needing real synchronized spot. Constraint: 1min/7d returns only the most recent trading day → needs a **daily accumulator** (`pull_daily.py`, Windows scheduled task 16:35 IST weekdays, dedup by key+interval+datetime).
+
 ---
 
 ## DATA ASSETS ACQUIRED
