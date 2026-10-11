@@ -64,6 +64,9 @@ Connected INDmoney MCP (Indian app, free, **read-only**, OAuth 2.1+PKCE — no k
 ### L12 — Smoke test passed the honesty gate; naive mean-reversion is flat
 Mean-reversion on 4 days of clean 5-min Nifty futures (lot **65**, verified): 37 trades, 62% win, **−₹18,361**, worst trade −₹7,282. **Honesty gate passed** — all trades within ±₹20K (vs the old fake run's ₹12K avg trades on parity noise). Pipeline validated end-to-end on real data; the naive config is slightly negative, as expected. **4 days is not a sample — no edge claim until 30+ days.** Equity track added: 15 most-liquid F&O stocks via explicit ticker→company alias map (fuzzy matching missed HDFC Bank / Infosys / TCS), 6,375 clean candles. Daily accumulation via Windows scheduled tasks: `INDmoney_Daily_Pull` (futures, 16:35) and `INDmoney_Equity_Pull` (futures+equity, 16:45) IST weekdays.
 
+### L13 — A wrong ind_key fabricated ₹36 crore (and the quality gate caught it)
+Equity smoke test showed ₹36 Cr from RELIANCE alone — impossible. Honesty gate aborted it. Root cause: `lookup_ind_keys` returned **two ind_keys** for the same name ("Reliance Industries" AND "Reliance Power"; same for ITC). The alias map kept the *last* match, so ₹0.84 "Reliance Power" bars got mixed into a ₹1,220 stock. A "trade" entering ₹0.84 → exiting ₹1,220 = fake ₹103,448. **The entire ₹36 Cr was two contaminated instruments.** Fixes: (1) verify every resolved ind_key with a 1-day candle fetch and reject prices below the instrument's plausible range; (2) a **data-quality gate** in every backtest — reject any series whose price range spans >10× its median or has duplicate timestamps. **Rule: a name lookup is not an instrument identity. Always verify the resolved key's price is plausible before trusting its data.**
+
 ---
 
 ## DATA ASSETS ACQUIRED
