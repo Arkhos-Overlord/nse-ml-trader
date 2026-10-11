@@ -61,6 +61,9 @@ Nifty futures/options lot was **75** in the 2024-2025 datasets but is **65** in 
 ### L11 — UNBLOCK: INDmoney MCP provides clean synchronized intraday data (₹0)
 Connected INDmoney MCP (Indian app, free, **read-only**, OAuth 2.1+PKCE — no keys to manage). 22 tools incl. `lookup_ind_keys` + `get_indian_stocks_ohlc` (1min–30min up to 7d, 1day–1month up to 1y) covering indices, futures, options, stocks. Built `indmoney_client.py` (JSON-RPC over Hermes's cached OAuth token). **Verified clean:** Nifty futures 1-min mean |step| = 4.9–5.2 pts (vs ±80pt fake jumps from parity reconstruction). Daily OHLC cross-checks exactly against nsepython. Futures directly available (NIFTY Oct/Nov/Dec). This replaces the contaminated HuggingFace option files for anything needing real synchronized spot. Constraint: 1min/7d returns only the most recent trading day → needs a **daily accumulator** (`pull_daily.py`, Windows scheduled task 16:35 IST weekdays, dedup by key+interval+datetime).
 
+### L12 — Smoke test passed the honesty gate; naive mean-reversion is flat
+Mean-reversion on 4 days of clean 5-min Nifty futures (lot **65**, verified): 37 trades, 62% win, **−₹18,361**, worst trade −₹7,282. **Honesty gate passed** — all trades within ±₹20K (vs the old fake run's ₹12K avg trades on parity noise). Pipeline validated end-to-end on real data; the naive config is slightly negative, as expected. **4 days is not a sample — no edge claim until 30+ days.** Equity track added: 15 most-liquid F&O stocks via explicit ticker→company alias map (fuzzy matching missed HDFC Bank / Infosys / TCS), 6,375 clean candles. Daily accumulation via Windows scheduled tasks: `INDmoney_Daily_Pull` (futures, 16:35) and `INDmoney_Equity_Pull` (futures+equity, 16:45) IST weekdays.
+
 ---
 
 ## DATA ASSETS ACQUIRED
