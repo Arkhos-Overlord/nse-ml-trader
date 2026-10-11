@@ -1,0 +1,15 @@
+=== DELTA-HEDGED IRON CONDOR (gap tail capped by wings) ===
+
+wing +/-1000:
+    condor 1000 : 626 trades, Rs2,227,428, 48% win, worst Rs-280,738, 8/12 yrs, avg maxloss Rs27,560
+
+wing +/-1500:
+    condor 1500 : 625 trades, Rs4,154,708, 51% win, worst Rs-276,774, 10/12 yrs, avg maxloss Rs50,998
+
+wing +/-2000:
+    condor 2000 : 591 trades, Rs2,165,078, 49% win, worst Rs-259,366, 8/12 yrs, avg maxloss Rs83,749
+
+  HONEST: compare worst-trade vs the straddle version (-Rs1.8L).
+  If wings cap the tail AND it still profits across years -> TRADABLE.
+  The avg max_loss column = your true worst-case per trade.
+DONE 0
