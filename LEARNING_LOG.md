@@ -50,7 +50,13 @@ One Nifty lot margin ≈ ₹50K. Worst day to survive at 1% risk sets the floor:
 Mean-reversion on reconstructed spot showed **+₹47Cr on ₹1.5L** (+31,372%), 89% win, 2.8% DD. Impossible. Arithmetic audit exposed it: max possible trade = target 0.08% of ₹23,000 = ₹1,350, but sim's implied avg was ₹12,242 = **9× inflated**. Root cause: spot reconstructed as **S = K + (CE − PE)** from stale last-trade CE/PE prices fabricated **±80pt single-minute swings** real Nifty never makes. The "edge" was pure noise in broken data. Saved only by refusing to believe a too-good number and recomputing the arithmetic.
 
 ### L8 — Reconstructed spot from option parity is NOT trustworthy for scalping
-Put-call parity S ≈ K + (CE − PE) holds at one instant with *synchronized* quotes. Intraday option files store last-trade prices at staggered times, so CE−PE embeds stale-quote noise, not real spot motion. Fine for rough delta; **unusable as a 1-min price series** for any strategy trading the noise. Need real synchronized spot — not reconstructible from these files.
+Put-call parity S ≈ K + (CE − PE) holds at one instant with *synchronized* quotes. Intraday option files store last-trade prices at staggered times, so CE−PE embeds stale-quote noise, not real spot motion. Deep-ITM-call proxy (S ≈ K + C) is ALSO contaminated (+101pt jump then flat = stale-trade dead time). **Both reconstructions unusable as 1-min price series.** Fine for rough delta only. Need real synchronized spot.
+
+### L9 — Clean intraday futures data is broker-gated (no keyless source)
+Verified: Kite instrument master (9MB) downloads keyless and confirms Nifty futures (lot now **65**, not 75), but historical 1-min candles require api_key+access_token (HTTP 400 without). NSE bhavcopy = EOD only. yfinance caps intraday at 60 days. **No keyless 1-min intraday spot/futures source exists.** The mean-reversion path is blocked by data access, not effort — a broker account (Zerodha/Dhan) is the unblock.
+
+### L10 — Contract specs drift; re-verify lot size
+Nifty futures/options lot was **75** in the 2024-2025 datasets but is **65** in current Kite master. Any PnL using the old lot overstates by 75/65 = 1.15×. Always re-pull lot size from the live instrument file before sizing.
 
 ---
 
