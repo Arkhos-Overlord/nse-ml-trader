@@ -1,8 +1,0 @@
-git: 'credential-gh' is not a git command. See 'git --help'.
-
-The most similar command is
-	credential-cache
-To https://github.com/Arkhos-Overlord/nse-ml-trader.git
-   b18293b..b19ed04  main -> main
-EXIT 0
-## main...origin/main
