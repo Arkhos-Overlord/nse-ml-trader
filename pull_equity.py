@@ -17,6 +17,7 @@ warnings.filterwarnings("ignore")
 from indmoney_client import Ind  # noqa: E402
 
 STORE = "data_indmoney/equity_5min.parquet"
+EXPECT_MIN_PRICE = 50.0   # none of our 15 large-caps trade below Rs50 (L13)
 
 # Most liquid Indian stocks (F&O names = highest liquidity)
 # alias -> the name INDmoney's lookup returns (avoids fuzzy-match misses)
@@ -52,8 +53,22 @@ def resolve(c):
     keys = {}
     for tick, company in STOCK_ALIASES.items():
         k = found.get(company.upper())
-        if k:
-            keys[tick] = k
+        if not k:
+            continue
+        # VERIFY: fetch one candle and check the price is plausible for the
+        # company. A wrong ind_key (e.g. Reliance Power for RELIANCE) returns
+        # a wildly different price and poisons the whole dataset (L13).
+        try:
+            r = c.call("get_indian_stocks_ohlc",
+                       {"ind_key": k, "interval": "1day", "lookback": "14d"})
+            px = r["candles"][-1]["close"] if isinstance(r, dict) and r.get("count") else 0
+        except Exception:  # noqa: BLE001
+            px = 0
+        if 0 < px < EXPECT_MIN_PRICE:
+            print(f"  REJECT {tick}: key {k} price Rs{px} (below "
+                  f"Rs{EXPECT_MIN_PRICE}) — wrong instrument, skipped")
+            continue
+        keys[tick] = k
     return keys
 
 
