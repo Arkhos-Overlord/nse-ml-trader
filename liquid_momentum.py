@@ -31,7 +31,7 @@ import pandas as pd
 
 warnings.filterwarnings("ignore")
 
-STORE = "data_indmoney/daily_1y.parquet"
+STORE = "data_indmoney/daily_history.parquet"
 CAPITAL = 150000.0
 # Indian equity delivery costs: brokerage 0.1-0.3%, STT 0.1% both sides, etc.
 COST_ROUNDTRIP = 0.003   # 0.3% round-trip, realistic for delivery equity
