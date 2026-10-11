@@ -67,6 +67,9 @@ Mean-reversion on 4 days of clean 5-min Nifty futures (lot **65**, verified): 37
 ### L13 — A wrong ind_key fabricated ₹36 crore (and the quality gate caught it)
 Equity smoke test showed ₹36 Cr from RELIANCE alone — impossible. Honesty gate aborted it. Root cause: `lookup_ind_keys` returned **two ind_keys** for the same name ("Reliance Industries" AND "Reliance Power"; same for ITC). The alias map kept the *last* match, so ₹0.84 "Reliance Power" bars got mixed into a ₹1,220 stock. A "trade" entering ₹0.84 → exiting ₹1,220 = fake ₹103,448. **The entire ₹36 Cr was two contaminated instruments.** Fixes: (1) verify every resolved ind_key with a 1-day candle fetch and reject prices below the instrument's plausible range; (2) a **data-quality gate** in every backtest — reject any series whose price range spans >10× its median or has duplicate timestamps. **Rule: a name lookup is not an instrument identity. Always verify the resolved key's price is plausible before trusting its data.**
 
+### L14 — Daily swing equity: no edge (proven on 246 real days)
+Pulled **1 year of daily candles** (246 trading days, 29 instruments) — a real sample, no waiting on intraday accumulation. Tested long-only swing (momentum/reversion/uptrend/pullback × 5 holds = 20 configs), short-side, gap, vol-compression, inside-bar, relative-strength. **Every config negative after honest costs (₹144/round-trip).** Indian equities are efficient. One config looked positive (`20d_high SHORT`, +₹34/trade net) — stress test killed it: **H1 +₹1,122/trade vs H2 +₹90/trade** (edge was one regime, not stable), **only 3/9 stocks positive with LT alone carrying it** (100% win, remove LT = negative), and results swing −₹38→+₹740 by changing hold period (overfitting surface). **Rule: one positive backtest is not an edge. Require (a) positive in BOTH holdout halves, (b) broad-based across instruments, (c) stable across parameter sweeps — or it's luck.**
+
 ---
 
 ## DATA ASSETS ACQUIRED
