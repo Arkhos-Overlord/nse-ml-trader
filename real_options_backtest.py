@@ -22,8 +22,8 @@ import yfinance as yf
 warnings.filterwarnings("ignore")
 
 
-def get(sym):
-    d = yf.download(sym, period="3y", interval="1d", progress=False)
+def get(sym, period="max"):
+    d = yf.download(sym, period=period, interval="1d", progress=False)
     if isinstance(d.columns, pd.MultiIndex):
         d.columns = d.columns.get_level_values(0)
     return d
