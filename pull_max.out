@@ -1,0 +1,27 @@
+=== PULL MAX 2026-10-11 17:17 ===
+
+resolved 14/15 stocks
+14 stocks pass price verification
+
+--- 1y daily candles ---
+  RELIANCE: 246 daily candles 2025-10-13 -> 2026-10-09
+  HDFCBANK: 246 daily candles 2025-10-13 -> 2026-10-09
+  ICICIBANK: 246 daily candles 2025-10-13 -> 2026-10-09
+  INFY: 246 daily candles 2025-10-13 -> 2026-10-09
+  TCS: 246 daily candles 2025-10-13 -> 2026-10-09
+  SBIN: 246 daily candles 2025-10-13 -> 2026-10-09
+  BHARTIARTL: 246 daily candles 2025-10-13 -> 2026-10-09
+  ITC: 246 daily candles 2025-10-13 -> 2026-10-09
+  KOTAKBANK: 246 daily candles 2025-10-13 -> 2026-10-09
+  LT: 246 daily candles 2025-10-13 -> 2026-10-09
+  AXISBANK: 246 daily candles 2025-10-13 -> 2026-10-09
+  HINDUNILVR: 246 daily candles 2025-10-13 -> 2026-10-09
+  BAJFINANCE: 246 daily candles 2025-10-13 -> 2026-10-09
+  TATAMOTORS: 226 daily candles 2025-11-12 -> 2026-10-09
+
+  DAILY STORE: 3670 candles, 15 instruments, 246 trading days
+
+--- 15min intraday (7d) ---
+
+=== SUMMARY ===
+  daily_1y: 3670 candles, 246 days

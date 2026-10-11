@@ -1,0 +1,31 @@
+============================================================
+DELTA-HEDGED CREDIT SPREAD — the Rs1.5L-fit version
+============================================================
+  exact costs applied. defined risk (wings cap the loss).
+
+wing +/-500, hedged:
+    spread 500 hedged: 208 trades, Rs-419,363, 34% win, worst Rs-288,984, 2/3 yrs
+     avg credit Rs25,793, avg maxloss Rs11,707
+
+wing +/-500, naked :
+    spread 500 naked : 208 trades, Rs-381,929, 34% win, worst Rs-286,206, 2/3 yrs
+     avg credit Rs25,793, avg maxloss Rs11,707
+
+wing +/-1000, hedged:
+$^INDIAVIX: possibly delisted; no price data found  (1d 1927-11-05 -> 2026-10-11)
+
+1 Failed download:
+['^INDIAVIX']: possibly delisted; no price data found  (1d 1927-11-05 -> 2026-10-11)
+$^NSEI: possibly delisted; no price data found  (1d 1927-11-05 -> 2026-10-11)
+
+1 Failed download:
+['^NSEI']: possibly delisted; no price data found  (1d 1927-11-05 -> 2026-10-11)
+    spread 1000 hedged: no trades
+
+wing +/-1000, naked :
+    spread 1000 naked : 218 trades, Rs653,661, 50% win, worst Rs-277,484, 2/3 yrs
+     avg credit Rs46,816, avg maxloss Rs28,184
+
+  KEY QUESTION: does the spread keep the edge AND cap the tail
+  to something Rs1.5L survives (≤ Rs15K worst)?
+DONE 0

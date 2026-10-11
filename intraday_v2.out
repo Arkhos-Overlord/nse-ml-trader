@@ -1,0 +1,26 @@
+=== INTRADAY DELTA-HEDGED v2 (12 days, spot from parity) ===
+  total PnL: Rs-1,149
+  avg/day: Rs-96
+  win rate: 83%
+  worst day: Rs-17,864
+  best day: Rs8,915
+
+  Rs1.5L: worst = 11.9% (SURVIVES)
+  Rs10K: worst = 179% (RUINED)
+  monthly (20d): Rs-1,915/lot
+  annualized: Rs-23,933/lot
+
+  for _, r in t.iterrows(): print day pnl for transparency
+    2025-01-01: Rs-14,960
+    2025-01-02: Rs8,915
+    2025-01-03: Rs4,988
+    2025-01-06: Rs-17,864
+    2025-01-07: Rs3,282
+    2025-01-08: Rs2,283
+    2025-01-09: Rs424
+    2025-01-10: Rs2,692
+    2025-01-13: Rs937
+    2025-01-14: Rs3,573
+    2025-01-15: Rs2,363
+    2025-01-16: Rs2,218
+DONE 0

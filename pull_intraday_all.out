@@ -1,0 +1,4 @@
+=== widen intraday: 40 stocks + Nifty + futures ===
+  pulled 30 stocks with intraday data
+  equity store: 34 stocks, 5 days, 11125 bars
+EXIT 0
