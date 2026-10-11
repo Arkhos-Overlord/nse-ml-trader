@@ -1,0 +1,17 @@
+Loaded 1500 15m bars
+
+=== GAP 3: HMM vs naive-vol-threshold (same strategies+risk) ===
+(Nifty index = 0 trades on ₹10K, so compare on RELIANCE where units>0)
+RELIANCE: 1495 bars, last close ~Rs1170
+
+--- NIFTY ---
+  HMM     : 0 trades
+  naive-vol: 0 trades
+
+--- RELIANCE ---
+  HMM     : trades=140 total=Rs-305 winrate=27% avg=Rs-2
+  naive-vol: trades=86 total=Rs-214 winrate=27% avg=Rs-2
+
+VERDICT: if naive-vol >= HMM, the HMM is decorative. If HMM > naive,
+the regime model earns its complexity.
+DONE 0
