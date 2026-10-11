@@ -1,0 +1,264 @@
+=== yfinance deep pull + ORB re-test 11-10-2026 20:47:31.00 === 
+=== deep intraday pull (yfinance, keyless, 60d) ===
+  NIFTY50 5m: 4498 bars, 60 days, 2026-07-16 -> 2026-10-09
+  NIFTY50 15m: 1500 bars, 60 days, 2026-07-16 -> 2026-10-09
+  BANKNIFTY 5m: 4498 bars, 60 days, 2026-07-16 -> 2026-10-09
+  BANKNIFTY 15m: 1500 bars, 60 days, 2026-07-16 -> 2026-10-09
+  SENSEX 5m: 4498 bars, 60 days, 2026-07-16 -> 2026-10-09
+  SENSEX 15m: 1500 bars, 60 days, 2026-07-16 -> 2026-10-09
+
+  store: data_indmoney/intraday_deep.parquet
+  3 indices x 2 intervals, 17994 bars, 0 dupes (0=clean)
+  days: 60
+  -> 12x the INDmoney intraday depth. Microstructure engine testable NOW.
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: TATAMOTORS.NS"}}}
+$TATAMOTORS.NS: possibly delisted; no timezone found
+
+1 Failed download:
+['TATAMOTORS.NS']: possibly delisted; no timezone found
+=== deep history backfill (yfinance, keyless) ===
+  universe: 63 instruments, start=2018-01-01
+
+  ADANIENT     2167 bars, 2018-01-01 -> 2026-10-09
+  ASHOKLEY     2167 bars, 2018-01-01 -> 2026-10-09
+  ASIANPAINT   2167 bars, 2018-01-01 -> 2026-10-09
+  AXISBANK     2167 bars, 2018-01-01 -> 2026-10-09
+  BAJAJ-AUTO   2167 bars, 2018-01-01 -> 2026-10-09
+  BAJFINANCE   2167 bars, 2018-01-01 -> 2026-10-09
+  BANDHANBNK   2109 bars, 2018-03-27 -> 2026-10-09
+  BATAINDIA    2167 bars, 2018-01-01 -> 2026-10-09
+  BEL          2167 bars, 2018-01-01 -> 2026-10-09
+  BHARTIARTL   2167 bars, 2018-01-01 -> 2026-10-09
+  BPCL         2167 bars, 2018-01-01 -> 2026-10-09
+  BSE          2167 bars, 2018-01-01 -> 2026-10-09
+  CIPLA        2167 bars, 2018-01-01 -> 2026-10-09
+  COALINDIA    2167 bars, 2018-01-01 -> 2026-10-09
+  COFORGE      2167 bars, 2018-01-01 -> 2026-10-09
+  CUMMINSIND   2167 bars, 2018-01-01 -> 2026-10-09
+  DELHIVERY    1084 bars, 2022-05-24 -> 2026-10-09
+  DMART        2167 bars, 2018-01-01 -> 2026-10-09
+  EICHERMOT    2167 bars, 2018-01-01 -> 2026-10-09
+  EQUITASBNK   1469 bars, 2020-11-02 -> 2026-10-09
+  FEDERALBNK   2167 bars, 2018-01-01 -> 2026-10-09
+  GRASIM       2167 bars, 2018-01-01 -> 2026-10-09
+  HCLTECH      2167 bars, 2018-01-01 -> 2026-10-09
+  HDFCBANK     2167 bars, 2018-01-01 -> 2026-10-09
+  HEROMOTOCO   2167 bars, 2018-01-01 -> 2026-10-09
+  HINDALCO     2167 bars, 2018-01-01 -> 2026-10-09
+  HINDUNILVR   2167 bars, 2018-01-01 -> 2026-10-09
+  ICICIBANK    2167 bars, 2018-01-01 -> 2026-10-09
+  IDFCFIRSTB   2167 bars, 2018-01-01 -> 2026-10-09
+  IEX          2167 bars, 2018-01-01 -> 2026-10-09
+  INFY         2167 bars, 2018-01-01 -> 2026-10-09
+  IRFC         1408 bars, 2021-01-29 -> 2026-10-09
+  ITC          2167 bars, 2018-01-01 -> 2026-10-09
+  JSWSTEEL     2167 bars, 2018-01-01 -> 2026-10-09
+  KFINTECH     933 bars, 2022-12-29 -> 2026-10-09
+  KOTAKBANK    2167 bars, 2018-01-01 -> 2026-10-09
+  LT           2167 bars, 2018-01-01 -> 2026-10-09
+  M&M          2167 bars, 2018-01-01 -> 2026-10-09
+  MARICO       2167 bars, 2018-01-01 -> 2026-10-09
+  MPHASIS      2167 bars, 2018-01-01 -> 2026-10-09
+  NESTLEIND    2167 bars, 2018-01-01 -> 2026-10-09
+  NIFTY50      2162 bars, 2018-01-02 -> 2026-10-09
+  NTPC         2167 bars, 2018-01-01 -> 2026-10-09
+  NYKAA        1216 bars, 2021-11-10 -> 2026-10-09
+  PAGEIND      2166 bars, 2018-01-01 -> 2026-10-09
+  PERSISTENT   2167 bars, 2018-01-01 -> 2026-10-09
+  POLICYBZR    1212 bars, 2021-11-15 -> 2026-10-09
+  POLYCAB      1850 bars, 2019-04-16 -> 2026-10-09
+  RELIANCE     2167 bars, 2018-01-01 -> 2026-10-09
+  RVNL         1853 bars, 2019-04-11 -> 2026-10-09
+  SBIN         2167 bars, 2018-01-01 -> 2026-10-09
+  SUZLON       2167 bars, 2018-01-01 -> 2026-10-09
+  TATAELXSI    2167 bars, 2018-01-01 -> 2026-10-09
+  TATAMOTORS   empty (bad symbol?)
+  TATASTEEL    2167 bars, 2018-01-01 -> 2026-10-09
+  TCS          2167 bars, 2018-01-01 -> 2026-10-09
+  TECHM        2167 bars, 2018-01-01 -> 2026-10-09
+  TVSMOTOR     2167 bars, 2018-01-01 -> 2026-10-09
+  UJJIVANSFB   1691 bars, 2019-12-12 -> 2026-10-09
+  ULTRACEMCO   2167 bars, 2018-01-01 -> 2026-10-09
+  VOLTAS       2167 bars, 2018-01-01 -> 2026-10-09
+  WIPRO        2167 bars, 2018-01-01 -> 2026-10-09
+  YESBANK      2167 bars, 2018-01-01 -> 2026-10-09
+
+  store: data_indmoney/daily_history.parquet
+  62 instruments, 127503 candles, 0 duplicates (0=clean)
+  date span: 2018-01-01 -> 2026-10-09
+  history depth: median 8.8y, min 3.8y, max 8.8y
+  succeeded: 62/63
+  failed: ['TATAMOTORS']
+
+=== SANITY CHECK (recent closes) ===
+  RELIANCE   latest close Rs1,170.3 (expected ~1200-1600) <-- CHECK
+  HDFCBANK   latest close Rs707.2 (expected ~700-1100) OK
+  INFY       latest close Rs1,023.4 (expected ~1300-1900) <-- CHECK
+  NIFTY50    latest close Rs22,520.4 (expected ~20000-27000) OK
+
+  momentum 19-24m requirement satisfiable: YES (median 8.8y)
+=== ORB-2d HONESTY GATES ===
+
+GATE 1 — CROSS-INDEX (real edge works on both):
+  Nifty ORB-2d                       n=57   win= 61% net=+0.149% t=+1.31
+  BankNifty ORB-2d                   n=56   win= 32% net=-0.261% t=-2.13
+  -> both positive: NO (one-index = noise/regime)
+
+GATE 2 — TIME HOLDOUT (Nifty ORB-2d):
+  first 30d                          n=28   win= 57% net=-0.013% t=-0.08
+  last 30d                           n=29   win= 66% net=+0.305% t=+1.89
+
+GATE 3 — PARAM SENSITIVITY (Nifty, plateau or spike?):
+   orb_min  hold   net%/tr   t-stat
+       10m    2d    0.100%    +0.87
+       10m    3d    0.008%    +0.05
+       15m    2d    0.149%    +1.31
+       15m    3d    0.079%    +0.51
+       20m    2d    0.107%    +0.91
+       20m    3d    0.036%    +0.23
+       30m    2d    0.159%    +1.39
+       30m    3d    0.185%    +1.23
+
+GATE 4 — REGIME (Nifty ORB-2d, split by break direction):
+  long breaks only                   n=20   win= 40% net=-0.139% t=-0.81
+  short breaks only                  n=37   win= 73% net=+0.305% t=+2.15
+
+GATE 5 — COST SENSITIVITY (Nifty ORB-2d, 2x slippage):
+  ORB-2d 2x slippage                 n=57   win= 61% net=+0.129% t=+1.14
+
+=== VERDICT ===
+  REAL edge needs: both indices positive + both holdout halves
+  positive + param plateau + survives 2x slippage. Otherwise fake.
+=== done 11-10-2026 20:48:34.95 === 
+=== yfinance deep pull + ORB re-test 11-10-2026 22:55:39.66 === 
+=== deep intraday pull (yfinance, keyless, 60d) ===
+  NIFTY50 5m: 4498 bars, 60 days, 2026-07-16 -> 2026-10-09
+  NIFTY50 15m: 1500 bars, 60 days, 2026-07-16 -> 2026-10-09
+  BANKNIFTY 5m: 4498 bars, 60 days, 2026-07-16 -> 2026-10-09
+  BANKNIFTY 15m: 1500 bars, 60 days, 2026-07-16 -> 2026-10-09
+  SENSEX 5m: 4498 bars, 60 days, 2026-07-16 -> 2026-10-09
+  SENSEX 15m: 1500 bars, 60 days, 2026-07-16 -> 2026-10-09
+
+  store: data_indmoney/intraday_deep.parquet
+  3 indices x 2 intervals, 17994 bars, 0 dupes (0=clean)
+  days: 60
+  -> 12x the INDmoney intraday depth. Microstructure engine testable NOW.
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: TATAMOTORS.NS"}}}
+$TATAMOTORS.NS: possibly delisted; no timezone found
+
+1 Failed download:
+['TATAMOTORS.NS']: possibly delisted; no timezone found
+=== deep history backfill (yfinance, keyless) ===
+  universe: 63 instruments, start=2018-01-01
+
+  ADANIENT     2167 bars, 2018-01-01 -> 2026-10-09
+  ASHOKLEY     2167 bars, 2018-01-01 -> 2026-10-09
+  ASIANPAINT   2167 bars, 2018-01-01 -> 2026-10-09
+  AXISBANK     2167 bars, 2018-01-01 -> 2026-10-09
+  BAJAJ-AUTO   2167 bars, 2018-01-01 -> 2026-10-09
+  BAJFINANCE   2167 bars, 2018-01-01 -> 2026-10-09
+  BANDHANBNK   2109 bars, 2018-03-27 -> 2026-10-09
+  BATAINDIA    2167 bars, 2018-01-01 -> 2026-10-09
+  BEL          2167 bars, 2018-01-01 -> 2026-10-09
+  BHARTIARTL   2167 bars, 2018-01-01 -> 2026-10-09
+  BPCL         2167 bars, 2018-01-01 -> 2026-10-09
+  BSE          2167 bars, 2018-01-01 -> 2026-10-09
+  CIPLA        2167 bars, 2018-01-01 -> 2026-10-09
+  COALINDIA    2167 bars, 2018-01-01 -> 2026-10-09
+  COFORGE      2167 bars, 2018-01-01 -> 2026-10-09
+  CUMMINSIND   2167 bars, 2018-01-01 -> 2026-10-09
+  DELHIVERY    1084 bars, 2022-05-24 -> 2026-10-09
+  DMART        2167 bars, 2018-01-01 -> 2026-10-09
+  EICHERMOT    2167 bars, 2018-01-01 -> 2026-10-09
+  EQUITASBNK   1469 bars, 2020-11-02 -> 2026-10-09
+  FEDERALBNK   2167 bars, 2018-01-01 -> 2026-10-09
+  GRASIM       2167 bars, 2018-01-01 -> 2026-10-09
+  HCLTECH      2167 bars, 2018-01-01 -> 2026-10-09
+  HDFCBANK     2167 bars, 2018-01-01 -> 2026-10-09
+  HEROMOTOCO   2167 bars, 2018-01-01 -> 2026-10-09
+  HINDALCO     2167 bars, 2018-01-01 -> 2026-10-09
+  HINDUNILVR   2167 bars, 2018-01-01 -> 2026-10-09
+  ICICIBANK    2167 bars, 2018-01-01 -> 2026-10-09
+  IDFCFIRSTB   2167 bars, 2018-01-01 -> 2026-10-09
+  IEX          2167 bars, 2018-01-01 -> 2026-10-09
+  INFY         2167 bars, 2018-01-01 -> 2026-10-09
+  IRFC         1408 bars, 2021-01-29 -> 2026-10-09
+  ITC          2167 bars, 2018-01-01 -> 2026-10-09
+  JSWSTEEL     2167 bars, 2018-01-01 -> 2026-10-09
+  KFINTECH     933 bars, 2022-12-29 -> 2026-10-09
+  KOTAKBANK    2167 bars, 2018-01-01 -> 2026-10-09
+  LT           2167 bars, 2018-01-01 -> 2026-10-09
+  M&M          2167 bars, 2018-01-01 -> 2026-10-09
+  MARICO       2167 bars, 2018-01-01 -> 2026-10-09
+  MPHASIS      2167 bars, 2018-01-01 -> 2026-10-09
+  NESTLEIND    2167 bars, 2018-01-01 -> 2026-10-09
+  NIFTY50      2162 bars, 2018-01-02 -> 2026-10-09
+  NTPC         2167 bars, 2018-01-01 -> 2026-10-09
+  NYKAA        1216 bars, 2021-11-10 -> 2026-10-09
+  PAGEIND      2166 bars, 2018-01-01 -> 2026-10-09
+  PERSISTENT   2167 bars, 2018-01-01 -> 2026-10-09
+  POLICYBZR    1212 bars, 2021-11-15 -> 2026-10-09
+  POLYCAB      1850 bars, 2019-04-16 -> 2026-10-09
+  RELIANCE     2167 bars, 2018-01-01 -> 2026-10-09
+  RVNL         1853 bars, 2019-04-11 -> 2026-10-09
+  SBIN         2167 bars, 2018-01-01 -> 2026-10-09
+  SUZLON       2167 bars, 2018-01-01 -> 2026-10-09
+  TATAELXSI    2167 bars, 2018-01-01 -> 2026-10-09
+  TATAMOTORS   empty (bad symbol?)
+  TATASTEEL    2167 bars, 2018-01-01 -> 2026-10-09
+  TCS          2167 bars, 2018-01-01 -> 2026-10-09
+  TECHM        2167 bars, 2018-01-01 -> 2026-10-09
+  TVSMOTOR     2167 bars, 2018-01-01 -> 2026-10-09
+  UJJIVANSFB   1691 bars, 2019-12-12 -> 2026-10-09
+  ULTRACEMCO   2167 bars, 2018-01-01 -> 2026-10-09
+  VOLTAS       2167 bars, 2018-01-01 -> 2026-10-09
+  WIPRO        2167 bars, 2018-01-01 -> 2026-10-09
+  YESBANK      2167 bars, 2018-01-01 -> 2026-10-09
+
+  store: data_indmoney/daily_history.parquet
+  62 instruments, 127503 candles, 0 duplicates (0=clean)
+  date span: 2018-01-01 -> 2026-10-09
+  history depth: median 8.8y, min 3.8y, max 8.8y
+  succeeded: 62/63
+  failed: ['TATAMOTORS']
+
+=== SANITY CHECK (recent closes) ===
+  RELIANCE   latest close Rs1,170.3 (expected ~1200-1600) <-- CHECK
+  HDFCBANK   latest close Rs707.2 (expected ~700-1100) OK
+  INFY       latest close Rs1,023.4 (expected ~1300-1900) <-- CHECK
+  NIFTY50    latest close Rs22,520.4 (expected ~20000-27000) OK
+
+  momentum 19-24m requirement satisfiable: YES (median 8.8y)
+=== ORB-2d HONESTY GATES ===
+
+GATE 1 — CROSS-INDEX (real edge works on both):
+  Nifty ORB-2d                       n=57   win= 61% net=+0.149% t=+1.31
+  BankNifty ORB-2d                   n=56   win= 32% net=-0.261% t=-2.13
+  -> both positive: NO (one-index = noise/regime)
+
+GATE 2 — TIME HOLDOUT (Nifty ORB-2d):
+  first 30d                          n=28   win= 57% net=-0.013% t=-0.08
+  last 30d                           n=29   win= 66% net=+0.305% t=+1.89
+
+GATE 3 — PARAM SENSITIVITY (Nifty, plateau or spike?):
+   orb_min  hold   net%/tr   t-stat
+       10m    2d    0.100%    +0.87
+       10m    3d    0.008%    +0.05
+       15m    2d    0.149%    +1.31
+       15m    3d    0.079%    +0.51
+       20m    2d    0.107%    +0.91
+       20m    3d    0.036%    +0.23
+       30m    2d    0.159%    +1.39
+       30m    3d    0.185%    +1.23
+
+GATE 4 — REGIME (Nifty ORB-2d, split by break direction):
+  long breaks only                   n=20   win= 40% net=-0.139% t=-0.81
+  short breaks only                  n=37   win= 73% net=+0.305% t=+2.15
+
+GATE 5 — COST SENSITIVITY (Nifty ORB-2d, 2x slippage):
+  ORB-2d 2x slippage                 n=57   win= 61% net=+0.129% t=+1.14
+
+=== VERDICT ===
+  REAL edge needs: both indices positive + both holdout halves
+  positive + param plateau + survives 2x slippage. Otherwise fake.
+=== done 11-10-2026 22:56:34.85 === 
