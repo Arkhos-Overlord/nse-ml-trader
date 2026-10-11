@@ -81,21 +81,35 @@ def orb_setup(df: pd.DataFrame, orb_candles: int = 3, buffer: float = 5.0,
     return TradeSetup(Signal.NONE, last, last, last, "ORB", 0.0)
 
 
-def vwap_reversion_setup(df: pd.DataFrame, dev_pct: float = 0.003) -> TradeSetup:
-    """Fade a ≥dev_pct deviation from VWAP with RSI confirmation."""
+def vwap_reversion_setup(df: pd.DataFrame, dev_pct: float = 0.003,
+                         max_rr: float = 3.0) -> TradeSetup:
+    """Fade a >=dev_pct deviation from VWAP with RSI confirmation.
+
+    Target is capped at partial reversion (50% of the deviation), NOT the full VWAP
+    line — chasing the whole distance to VWAP creates absurd 40x+ R:R setups with
+    near-zero stops that inflate position size and never fill. Cap keeps it real.
+    """
     if len(df) < 20:
         return TradeSetup(Signal.NONE, 0, 0, 0, "VWAP", 0.0)
     vwap = float(_vwap(df).iloc[-1])
     last = float(df["close"].iloc[-1])
     rsi = float(_rsi(df["close"]).iloc[-1])
     dev = (last - vwap) / (vwap + 1e-9)
+    atr = float((df["high"] - df["low"]).rolling(14).mean().iloc[-1])
+    # stop is at least 1x ATR away so sizing stays sane (no 47-point stops)
+    min_stop = max(atr, last * 0.002)
     if dev <= -dev_pct and rsi < 35:  # oversold vs vwap -> buy fade
-        sl = float(df["low"].iloc[-5:].min())
-        tgt = vwap
+        sl = min(float(df["low"].iloc[-5:].min()), last - min_stop)
+        tgt = last + (vwap - last) * 0.5  # 50% reversion, not full distance
+        # enforce R:R cap: pull target in if reward exceeds max_rr * risk
+        if abs(tgt - last) > max_rr * abs(last - sl):
+            tgt = last + max_rr * abs(last - sl)
         return TradeSetup(Signal.BUY, last, sl, tgt, "VWAP", 0.55)
     if dev >= dev_pct and rsi > 65:  # overbought vs vwap -> sell fade
-        sl = float(df["high"].iloc[-5:].max())
-        tgt = vwap
+        sl = max(float(df["high"].iloc[-5:].max()), last + min_stop)
+        tgt = last + (vwap - last) * 0.5
+        if abs(tgt - last) > max_rr * abs(sl - last):
+            tgt = last - max_rr * abs(sl - last)
         return TradeSetup(Signal.SELL, last, sl, tgt, "VWAP", 0.55)
     return TradeSetup(Signal.NONE, last, last, last, "VWAP", 0.0)
 

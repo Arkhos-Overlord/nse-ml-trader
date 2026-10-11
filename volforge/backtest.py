@@ -36,9 +36,17 @@ def walk_forward(df: pd.DataFrame, *, min_train: int = 250, refit_every: int = 5
                  regime_cfg: RegimeConfig | None = None) -> dict:
     d = _prep(df)
     close = d["close"]
+    n = len(d)
+    min_train = min(min_train, max(60, n // 3))  # don't demand more train than data
+    if n <= min_train + 1:
+        return {"error": f"window too short ({n} bars, need > {min_train})",
+                "total_return_pct": 0.0, "trades": 0, "win_rate_pct": 0.0,
+                "max_drawdown_pct": 0.0, "sharpe": 0.0, "final": risk.cfg.total_capital,
+                "initial": risk.cfg.total_capital,
+                "buy_hold_return_pct": 0.0, "cash_return_pct": 0.0,
+                "beats_cash": False, "beats_buy_hold": False}
     engine = HMMRegimeEngine(regime_cfg or RegimeConfig())
     risk = RiskManager(risk_cfg or RiskConfig())
-    n = len(d)
     balance = risk.cfg.total_capital
     initial = balance
     equity = []

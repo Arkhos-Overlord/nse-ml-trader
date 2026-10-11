@@ -54,12 +54,14 @@ class RiskManager:
             return False
         return True
 
-    def position_size(self, entry: float, stop_loss: float, regime_mult: float) -> int:
+    def position_size(self, entry: float, stop_loss: float, regime_mult: float,
+                      max_notional_pct: float = 20.0) -> int:
         """Units to trade. size = (risk_budget × regime_mult) / stop_distance.
 
-        regime_mult comes from the HMM engine (0 = flat). Costs are NOT subtracted
-        here (handled in the backtest ledger) but the caller must still clear the
-        cost gate before trading.
+        regime_mult comes from the HMM engine (0 = flat). A hard notional cap
+        (max_notional_pct of capital) stops a tiny stop from producing an absurd
+        unit count. Costs are NOT subtracted here (handled in the backtest ledger)
+        but the caller must still clear the cost gate before trading.
         """
         if not self.can_open() or regime_mult <= 0:
             return 0
@@ -68,7 +70,9 @@ class RiskManager:
             return 0
         budget = self.risk_per_trade() * min(regime_mult, 1.0)
         units = int(budget / stop_dist)
-        return max(units, 0)
+        # hard notional cap so a near-zero stop can't lever up absurdly
+        max_units = int((self.cfg.total_capital * max_notional_pct / 100.0) / entry)
+        return max(min(units, max_units), 0)
 
     def on_trade_closed(self, pnl: float) -> None:
         self.state.day_pnl += pnl
