@@ -28,13 +28,17 @@ async def main():
     try: fj = json.loads(fii); bj = json.loads(bulk)
     except Exception: print("WHALE_PARSE_ERR"); return
     rows = fj.get("data",[])
-    net = {r["category"]: r.get("netValue") for r in rows}
+    def _num(x):
+        try: return float(str(x).replace(",",""))
+        except (ValueError, TypeError): return None
+    net = {r["category"]: _num(r.get("netValue")) for r in rows}
     date = rows[0].get("date") if rows else "?"
     nbulk = bj.get("count", 0) if isinstance(bj,dict) else 0
     # stable alert: only fires when FII/DII date or bulk count changes
-    alert = f"FII_DII:{date}:FII={net.get('FII/FPI')}:DII={net.get('DII')}:bulk={nbulk}"
+    fii_v = net.get('FII/FPI'); dii_v = net.get('DII')
+    alert = f"FII_DII:{date}:FII={fii_v}:DII={dii_v}:bulk={nbulk}"
     print(alert)
-    json.dump({"ts": date, "fii_net": net.get("FII/FPI"), "dii_net": net.get("DII"),
+    json.dump({"ts": date, "fii_net": fii_v, "dii_net": dii_v,
                "bulk_deals": nbulk}, open(STATE,"w"))
 
 asyncio.run(main())
