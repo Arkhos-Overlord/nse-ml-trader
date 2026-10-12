@@ -1,0 +1,19 @@
+# FYERS CREDENTIALS — fill these in, then run CONDOR_LIVE_FYERS.bat
+#
+# HOW TO GET THESE (3 minutes):
+#   1. Go to  https://myapi.fyers.in  and log in with your Fyers trading account
+#      (no Fyers account yet? Create one there — it's free to open the API app;
+#       you need a funded/trading account to actually place orders).
+#   2. Click "Create App" (or open your existing app).
+#   3. Fill ONLY these fields:
+#        App Name:      hermes-condor
+#        Redirect URL:  http://127.0.0.1:8081/callback
+#      (leave everything else default)
+#   4. Save. The dashboard shows:
+#        App ID  -> this is your CLIENT_ID  (looks like XXXXXXXXXX-100)
+#        Secret  -> this is your SECRET_KEY
+#   5. Paste them below, between the quotes. Save this file.
+
+FYERS_CLIENT_ID="PASTE_APP_ID_HERE"
+FYERS_SECRET_KEY="PASTE_SECRET_HERE"
+FYERS_REDIRECT_URI="http://127.0.0.1:8081/callback"
