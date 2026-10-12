@@ -392,3 +392,4 @@
 [2026-10-12 14:59:15 IST] manage: MARUTI open, MTM P&L Rs-77 (credit Rs1078, stop -Rs1724)
 [2026-10-12 15:00:33 IST] exit window (>= 15h): squaring off MARUTI condor
 [2026-10-12 15:00:34 IST] closed. P&L Rs-73.49999999999987 | day Rs-73
+[2026-10-12 21:51:01 IST] !! STATE CORRUPT — quarantined a copy to auto_condor_state.json.corrupt.20261012-215100. CHECK FOR ORPHANED POSITION AT BROKER before trusting FLAT.

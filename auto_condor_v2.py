@@ -85,13 +85,18 @@ def load_state():
             return json.load(open(STATE))
         except Exception:
             # FAIL LOUD (red-team fix #2): a corrupt state file means a possible
-            # OPEN POSITION. Quarantine (move, never delete) — silently resetting
+            # OPEN POSITION. Quarantine a COPY (never delete) — silently resetting
             # orphans a live condor with no stop watching it.
             import shutil
             bak = STATE + ".corrupt." + _now().strftime("%Y%m%d-%H%M%S")
-            shutil.move(STATE, bak)
-            log(f"!! STATE CORRUPT — quarantined to {os.path.basename(bak)}. "
-                f"CHECK FOR ORPHANED POSITION AT BROKER before trusting FLAT.")
+            try:
+                shutil.copy2(STATE, bak)      # copy first: survives WinError 32
+                log(f"!! STATE CORRUPT — quarantined a copy to "
+                    f"{os.path.basename(bak)}. CHECK FOR ORPHANED POSITION AT "
+                    f"BROKER before trusting FLAT.")
+            except Exception as e:
+                log(f"!! STATE CORRUPT and quarantine copy failed "
+                    f"({repr(e)[:60]}). CHECK FOR ORPHANED POSITION AT BROKER.")
     return {"open": None, "day": None, "daily_pnl": 0.0, "trades": []}
 
 
@@ -289,13 +294,24 @@ def place_legs(fy, condor, lots, live):
                 # REJECTED LEG: do not mark the position open. Roll back any
                 # filled legs so we never sit in a partial, unmanaged condor.
                 log(f"!! ENTRY LEG REJECTED: {name} -> {resp}. Rolling back.")
+                # Roll back with REVERSE orders (type 2 = market). NOTE: do NOT
+                # use exit_positions here — it takes a POSITION id, not the
+                # order id place_order returns; the reverse order is the correct
+                # rollback for a partially filled multi-leg entry.
+                rev = {"ce_short": 1, "ce_long": -1, "pe_short": 1, "pe_long": -1}
                 for r in orders:
-                    if r.get("broker_resp") and _order_ok(r["broker_resp"]):
-                        try:
-                            fy.exit_positions(data={"id": r["broker_resp"]["id"]}) \
-                                if isinstance(r.get("broker_resp"), dict) and r["broker_resp"].get("id") else None
-                        except Exception:
-                            pass
+                    if not (r.get("broker_resp") and _order_ok(r["broker_resp"])):
+                        continue
+                    try:
+                        fy.place_order({
+                            "symbol": r["symbol"], "qty": r["qty"], "type": 2,
+                            "side": rev[r["leg"]], "productType": "MARGIN",
+                            "validity": "DAY", "stopPrice": 0, "disclosedQty": 0,
+                            "offlineOrder": False, "isSliceOrder": False})
+                        log(f"   rolled back {r['leg']} {r['symbol']}")
+                    except Exception as e2:
+                        log(f"!! ROLLBACK FAILED for {r['leg']}: {repr(e2)[:80]} — "
+                            f"CHECK BROKER MANUALLY")
                 return None, False
         orders.append(rec)
     return orders, True
