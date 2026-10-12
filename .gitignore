@@ -1,3 +1,7 @@
 NIFTY_intraday_*.parquet
 kite_instruments.csv
 data_indmoney/
+
+# fyers secrets
+fyers_token.json
+fyers_env.txt
