@@ -116,28 +116,30 @@ def get_fyers():
 
 def build_ticket(fy):
     """Live Nifty option chain -> iron condor legs."""
-    # Fyers symbol for Nifty index; get the nearest weekly expiry via quotes
     prof = fy.get_profile()
     if prof.get("s") != "ok":
         raise SystemExit(f"  auth/profile failed: {prof}")
-    # option chain: Fyers uses optionchain endpoint on NSE:NIFTY50-INDEX
     oc = fy.optionchain(data={"symbol": "NSE:NIFTY50-INDEX", "strikecount": 20,
                               "timestamp": ""})
     if oc.get("s") != "ok":
         raise SystemExit(f"  option chain failed: {oc}")
-    chain = oc["data"]["optionsChain"]
+    d = oc["data"]
+    chain = d.get("optionsChain", [])
+    # optionsChain is a FLAT list of legs: {strike_price, option_type, ltp, oi, ...}
     rows = []
-    lot = 65
-    for strike, legs in chain.items():
-        for typ in ("CE", "PE"):
-            leg = legs.get(typ)
-            if not leg:
-                continue
-            rows.append({"strike": float(strike), "type": typ,
-                         "ltp": float(leg.get("ltp", 0)),
-                         "oi": float(leg.get("oi", 0)),
-                         "lot": int(leg.get("lot_size", lot))})
-    return rows
+    for leg in chain:
+        k = leg.get("strike_price")
+        typ = leg.get("option_type")
+        ltp = leg.get("ltp")
+        if k is None or typ is None or ltp is None:
+            continue
+        rows.append({"strike": float(k), "type": typ, "ltp": float(ltp),
+                     "oi": float(leg.get("oi", 0))})
+    vix = None
+    iv = d.get("indiavixData")
+    if isinstance(iv, dict):
+        vix = iv.get("ltp") or iv.get("value") or iv.get("vix")
+    return rows, vix, d.get("expiryData")
 
 
 def pick_and_print(rows):
@@ -146,7 +148,7 @@ def pick_and_print(rows):
     if df.empty or df.strike.nunique() < LONG_WING + 2:
         print("  insufficient strikes on the live chain")
         return
-    lot = int(df.lot.mode().iloc[0])
+    lot = 65   # Nifty lot (confirmed; feed/INDmoney both report 65)
     atm = df.groupby("strike").oi.sum().idxmax()
     strikes = sorted(df.strike.unique())
     ai = strikes.index(atm)
@@ -189,7 +191,9 @@ def main():
     print("  CONDOR DESK — FYERS LIVE")
     print("=" * 84)
     fy = get_fyers()
-    rows = build_ticket(fy)
+    rows, vix, expiry = build_ticket(fy)
+    if vix is not None:
+        print(f"  IndiaVIX (live): {vix}")
     pick_and_print(rows)
 
 

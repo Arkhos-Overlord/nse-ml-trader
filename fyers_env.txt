@@ -14,6 +14,6 @@
 #        Secret  -> this is your SECRET_KEY
 #   5. Paste them below, between the quotes. Save this file.
 
-FYERS_CLIENT_ID="PASTE_APP_ID_HERE"
-FYERS_SECRET_KEY="PASTE_SECRET_HERE"
+FYERS_CLIENT_ID="L7FXI9JI2B-200"
+FYERS_SECRET_KEY="k7fLLeXgygeE9i5U"
 FYERS_REDIRECT_URI="http://127.0.0.1:8081/callback"
