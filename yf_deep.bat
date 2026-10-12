@@ -11,4 +11,5 @@ echo === yfinance deep pull + ORB re-test %date% %time% === >> yf_deep.log
 %PY% stock_gap_fade.py >> yf_deep.log 2>&1
 %PY% pead_final.py >> yf_deep.log 2>&1
 %PY% vrp_strangle_final.py >> yf_deep.log 2>&1
+%PY% vrp_condor_audit.py >> yf_deep.log 2>&1
 echo === done %date% %time% === >> yf_deep.log
