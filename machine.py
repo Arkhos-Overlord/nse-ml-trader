@@ -95,9 +95,9 @@ def build_status(fy, st, capital):
         w = {"ts": w.get("ts"), "fii_net": _wf(w.get("fii_net")),
              "dii_net": _wf(w.get("dii_net")), "bulk_deals": w.get("bulk_deals")}
     out["whale"] = w
-    # health
+    # health — measure the log THIS machine writes, not the old engine log
     try:
-        out["log_age_s"] = round(time.time() - os.path.getmtime(ac.LOG))
+        out["log_age_s"] = round(time.time() - os.path.getmtime(LOG))
     except Exception:
         out["log_age_s"] = None
     out["engine_age_s"] = out["log_age_s"]

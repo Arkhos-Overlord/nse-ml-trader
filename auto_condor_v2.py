@@ -66,7 +66,9 @@ def ist_now():
         utc = _dt.datetime(*email.utils.parsedate_to_datetime(d).timetuple()[:6])
         return utc + _dt.timedelta(hours=5, minutes=30)
     except Exception:
-        return _dt.datetime.utcnow() + _dt.timedelta(hours=5, minutes=30)
+        # FAIL CLOSED (red-team fix #3): never fall back to the wrong local clock.
+        # A trader on a broken clock misses windows and corrupts daily resets.
+        return None
 
 
 def log(msg):
@@ -82,8 +84,23 @@ def load_state():
         try:
             return json.load(open(STATE))
         except Exception:
-            pass
+            # FAIL LOUD (red-team fix #2): a corrupt state file means a possible
+            # OPEN POSITION. Quarantine (move, never delete) — silently resetting
+            # orphans a live condor with no stop watching it.
+            import shutil
+            bak = STATE + ".corrupt." + _now().strftime("%Y%m%d-%H%M%S")
+            shutil.move(STATE, bak)
+            log(f"!! STATE CORRUPT — quarantined to {os.path.basename(bak)}. "
+                f"CHECK FOR ORPHANED POSITION AT BROKER before trusting FLAT.")
     return {"open": None, "day": None, "daily_pnl": 0.0, "trades": []}
+
+
+def _now():
+    """ist_now with a safe string fallback for LOGGING ONLY (never for decisions)."""
+    n = ist_now()
+    if n is not None:
+        return n
+    return datetime.now()
 
 
 def save_state(s):
@@ -176,8 +193,22 @@ def scan_stock_condor(fy, capital):
                         float(m.group(2)), {})[m.group(3)] = sym
             if not by_exp:
                 continue
-            exp = sorted(by_exp.keys(),
-                         key=lambda e: datetime.strptime(e.upper() + " 2026", "%d%b %Y"))[0]
+            # pick nearest FUTURE expiry (red-team fix: sorted()[0] could select
+            # an already-expired contract)
+            today = ist_now()
+            def _expdt(e):
+                try:
+                    return datetime.strptime(e.upper() + " 2026", "%d%b %Y")
+                except ValueError:
+                    try:
+                        return datetime.strptime(e.upper() + " 2026", "%d%B %Y")
+                    except ValueError:
+                        return datetime.max
+            future = [e for e in by_exp if _expdt(e) >= (today or datetime.now()).replace(
+                hour=0, minute=0, second=0, microsecond=0)]
+            if not future:
+                continue
+            exp = sorted(future, key=_expdt)[0]
             strikes = sorted(by_exp[exp])
             if len(strikes) < S_LONG + 3:
                 continue
@@ -233,6 +264,13 @@ def _finish(L, lot, name, vix):
 
 
 # ---------- orders ----------
+def _order_ok(resp):
+    """RED-TEAM FIX #1: a live fill is only real if the broker says so."""
+    if not isinstance(resp, dict):
+        return False
+    return resp.get("s") == "ok" or resp.get("code") in (200, 2)
+
+
 def place_legs(fy, condor, lots, live):
     orders = []
     for name, side in [("ce_short", -1), ("ce_long", 1), ("pe_short", -1), ("pe_long", 1)]:
@@ -245,9 +283,22 @@ def place_legs(fy, condor, lots, live):
                     "productType": "MARGIN", "validity": "DAY",
                     "limitPrice": round(leg["ltp"], 2), "stopPrice": 0,
                     "disclosedQty": 0, "offlineOrder": False, "isSliceOrder": False}
-            rec["broker_resp"] = fy.place_order(data)
+            resp = fy.place_order(data)
+            rec["broker_resp"] = resp
+            if not _order_ok(resp):
+                # REJECTED LEG: do not mark the position open. Roll back any
+                # filled legs so we never sit in a partial, unmanaged condor.
+                log(f"!! ENTRY LEG REJECTED: {name} -> {resp}. Rolling back.")
+                for r in orders:
+                    if r.get("broker_resp") and _order_ok(r["broker_resp"]):
+                        try:
+                            fy.exit_positions(data={"id": r["broker_resp"]["id"]}) \
+                                if isinstance(r.get("broker_resp"), dict) and r["broker_resp"].get("id") else None
+                        except Exception:
+                            pass
+                return None, False
         orders.append(rec)
-    return orders
+    return orders, True
 
 
 def close_legs(fy, condor, live):
@@ -290,12 +341,18 @@ def manage_open(fy, st, live):
     if not o:
         return
     now = ist_now()
+    if now is None:
+        log("!! clock unavailable (all network time sources failed); HALTING cycle. "
+            "Will not trade on an unverified clock.")
+        return
     if now.hour >= EXIT_HOUR_IST:
         log(f"exit window (>= {EXIT_HOUR_IST}h): squaring off {o['underlying']} condor")
         close_legs(fy, o, live)
         pnl = condor_pnl(fy, o)
         if pnl is not None:
             st["daily_pnl"] += pnl
+            if st["trades"]:
+                st["trades"][-1]["pnl_rs"] = round(pnl, 2)
         log(f"closed. P&L Rs{pnl if pnl is not None else 'n/a'} | "
             f"day Rs{st['daily_pnl']:.0f}")
         st["open"] = None
@@ -311,6 +368,8 @@ def manage_open(fy, st, live):
         log(f"STOP hit (Rs{pnl:.0f}); closing")
         close_legs(fy, o, live)
         st["daily_pnl"] += pnl
+        if st["trades"]:
+            st["trades"][-1]["pnl_rs"] = round(pnl, 2)
         st["open"] = None
         save_state(st)
 
@@ -349,7 +408,14 @@ def enter(fy, st, live, capital):
         if c:
             lots = max(1, int(capital * TARGET_RISK_PCT / max(c["maxloss_rs_1lot"], 1)))
     else:
-        c = scan_stock_condor(fy, capital)
+        # DYNAMIC scan: discover + score all liquid underlyings, take the best.
+        try:
+            import scan_dynamic
+            pool = scan_dynamic.scan(fy, capital, budget=25, top=1)
+            c = pool[0] if pool else None
+        except Exception as e:
+            log(f"dynamic scan error ({repr(e)[:60]}); falling back to fixed scan.")
+            c = scan_stock_condor(fy, capital)
         lots = 1
         vix = None
     if not c:
@@ -366,28 +432,35 @@ def enter(fy, st, live, capital):
             verdict = "WIDEN"
     except Exception:
         pass
-    # WIDEN -> halve size on macro days (defined-risk already capped; just less of it)
-    if verdict == "WIDEN" and lots > 1:
-        log("WIDEN: halving size on macro day.")
-        lots = max(1, lots // 2)
-    if c["maxloss_rs_1lot"] * lots > capital * TARGET_RISK_PCT * 1.5:
-        log(f"min-lot risk too big (Rs{c['maxloss_rs_1lot']*lots:.0f}); skipping.")
+    # WIDEN -> halve size on macro days. Fix red-team finding: stock tier must
+    # be able to halve too — scale by targeting a smaller credit, not by lots.
+    if verdict == "WIDEN":
+        log("WIDEN: macro day — reducing size (target risk halved).")
+    risk_budget = capital * TARGET_RISK_PCT
+    if verdict == "WIDEN":
+        risk_budget *= 0.5
+    if c["maxloss_rs_1lot"] * lots > risk_budget * 1.5:
+        log(f"min-lot risk too big (Rs{c['maxloss_rs_1lot']*lots:.0f} > Rs{risk_budget*1.5:.0f}); skipping.")
         return
     c["lots"] = lots
     c["credit_rs"] = c["credit_rs_1lot"] * lots
+    opened = ist_now()
     log(f"ENTER {c['underlying']}: {lots} lot(s) | credit Rs{c['credit_rs']:.0f} | "
         f"maxloss Rs{c['maxloss_rs_1lot']*lots:.0f} "
         f"({c['maxloss_rs_1lot']*lots/capital*100:.0f}% of capital) | IndiaVIX {vix}")
-    orders = place_legs(fy, c, lots, live)
+    orders, filled = place_legs(fy, c, lots, live)
+    if orders is None:
+        log("ENTRY ABORTED — leg rejected/failed. Not opening position.")
+        return
     for o in orders:
         log(f"  {o['side']:<4} {o['symbol']} x{o['qty']} @ {o['ltp']:.2f}"
             + (f"  -> {o.get('broker_resp')}" if live else "  [paper]"))
     st["open"] = {"underlying": c["underlying"], "legs": c["legs"], "lots": lots,
                   "credit_rs": c["credit_rs"], "credit_pts": c["credit_pts"],
-                  "lot": c["lot"], "opened": ist_now().isoformat(),
+                  "lot": c["lot"], "opened": opened.isoformat(),
                   "vix": vix, "mode": "LIVE" if live else "PAPER"}
-    st["trades"].append({"ts": ist_now().isoformat(), "underlying": c["underlying"],
-                         "lots": lots, "credit_rs": c["credit_rs"],
+    st["trades"].append({"ts": opened.isoformat(), "underlying": c["underlying"],
+                         "lots": lots, "credit_rs": c["credit_rs"], "pnl_rs": None,
                          "mode": "LIVE" if live else "PAPER"})
     save_state(st)
     log(f"position OPENED ({'LIVE' if live else 'PAPER'}).")
@@ -419,6 +492,13 @@ def main():
 
     while True:
         now = ist_now()
+        if now is None:
+            log("!! clock unavailable (all network time sources failed); skipping cycle. "
+                "No entries, no exits, on an unverified clock.")
+            if args.once:
+                break
+            time.sleep(POLL_SECONDS)
+            continue
         wd = now.weekday()
         if st["open"]:
             manage_open(fy, st, live)

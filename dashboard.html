@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="30"><style>
+*{box-sizing:border-box}
+body{font-family:var(--font,ui-sans-serif,system-ui,sans-serif);color:var(--foreground);
+ background:transparent;margin:0;padding:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;max-width:1100px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.card h3{margin:0 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);font-weight:600}
+.big{font-size:22px;font-weight:700;line-height:1.1}
+.sub{font-size:12px;color:var(--muted-foreground);margin-top:3px}
+.row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
+.pos{color:#3fb950}.neg{color:#f85149}.flat{color:var(--muted-foreground)}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;border:1px solid var(--border)}
+.b-paper{color:#d29922;border-color:#d29922}
+.b-live{color:#3fb950;border-color:#3fb950}
+.b-block{color:#f85149;border-color:#f85149}
+.b-widen{color:#d29922;border-color:#d29922}
+.b-clear{color:#3fb950;border-color:#3fb950}
+.bar{height:6px;border-radius:3px;background:var(--border);margin-top:8px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent)}
+.head{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.head h1{font-size:15px;margin:0;font-weight:700}
+.btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+button{cursor:pointer;font:inherit;font-size:12px;padding:6px 12px;border-radius:8px;
+ border:1px solid var(--border);background:var(--card);color:var(--foreground)}
+button:hover{border-color:var(--accent)}
+.ts{font-size:11px;color:var(--muted-foreground);margin-left:auto}
+</style></head><body><div class="head"><h1>CONDOR DESK</h1><span class="badge b-paper">PAPER</span><span class="ts">2026-10-12T21:44:29</span></div><div class="grid"><div class="card"><h3>Position</h3><div class="big flat">FLAT</div><div class="sub">no open condor · watching for entry window</div></div><div class="card"><h3>Market</h3><div class="row"><span>Nifty 50</span><b class="neg">22,363.3 <span class="sub">▼ -0.7%</span></b></div><div class="row"><span>Bank Nifty</span><b class="neg">54,918.0 <span class="sub">▼ -0.61%</span></b></div><div class="row"><span>India VIX</span><b class="pos">15.2 <span class="sub">▲ 6.05%</span></b></div></div><div class="card"><h3>Event Risk</h3><div class="big"><span class="badge b-widen">WIDEN</span></div><div class="sub" style="margin-top:8px">macro event within 7d: India CPI/IIP</div></div><div class="card"><h3>Institutional Flows</h3><div class="row"><span>FII net</span><b class="neg">-3,569 Cr</b></div><div class="row"><span>DII net</span><b class="pos">+4,743 Cr</b></div><div class="sub">as of 09-Oct-2026</div></div><div class="card"><h3>Engine</h3><div class="big pos">healthy</div><div class="sub">cycle 2s ago · day P&amp;L ₹-73</div><div class="sub">IST Mon 21:44 · entry 9:20 · exit 15:00</div></div></div><div class="btns"><button data-hermes-send="machine status">status</button><button data-hermes-send="square off the open position now">square off</button><button data-hermes-send="reconcile P&L">reconcile</button><button data-hermes-send="arm the machine live">go live</button></div></body></html>
