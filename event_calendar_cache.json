@@ -1,0 +1,16 @@
+{
+  "ts_ist": "2026-10-12T10:14:43",
+  "macro_3d": [
+    {
+      "date": "2026-10-12",
+      "time": "16:00",
+      "name": "India CPI/IIP"
+    },
+    {
+      "date": "2026-10-14",
+      "time": "12:00",
+      "name": "India WPI"
+    }
+  ],
+  "nse_events_total": 268
+}

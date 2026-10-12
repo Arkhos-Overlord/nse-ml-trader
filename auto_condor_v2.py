@@ -316,6 +316,29 @@ def manage_open(fy, st, live):
 
 
 def enter(fy, st, live, capital):
+    # --- event + market-status gate (decisions, not just info) ---
+    try:
+        import entry_decision as ed
+        # candidate underlying depends on capital tier; check both names' risk
+        probe = "NIFTY" if capital >= NIFTY_THRESHOLD else None
+        if probe is None:
+            # stock tier: we don't know the underlying until scan; check macro only
+            import event_risk as er
+            r = er.event_risk_for(None, 7)
+            verdict = "WIDEN" if any(e.get("kind") == "macro" and e.get("impact") == "high"
+                                     for e in r["events"]) else "CLEAR"
+        else:
+            v = ed.entry_verdict(probe, 7)
+            verdict = v["verdict"]
+        if verdict == "BLOCK":
+            log("EVENT GATE: BLOCK — corporate/macro event in horizon; skipping entry.")
+            return
+        if verdict == "WIDEN":
+            log("EVENT GATE: WIDEN — macro event near; will widen wing + smaller size.")
+    except Exception as e:
+        log(f"event gate error ({repr(e)[:60]}); proceeding CLEAR.")
+        verdict = "CLEAR"
+
     if capital >= NIFTY_THRESHOLD:
         df, vix = pull_nifty_chain(fy)
         if df is None:
@@ -332,6 +355,21 @@ def enter(fy, st, live, capital):
     if not c:
         log("no tradeable condor built.")
         return
+    # re-check event verdict against the ACTUAL underlying chosen by the scan
+    try:
+        import entry_decision as ed
+        v2 = ed.entry_verdict(c["underlying"], 7)
+        if v2["verdict"] == "BLOCK":
+            log(f"EVENT GATE: BLOCK {c['underlying']} — {v2['why']}; skipping.")
+            return
+        if v2["verdict"] == "WIDEN":
+            verdict = "WIDEN"
+    except Exception:
+        pass
+    # WIDEN -> halve size on macro days (defined-risk already capped; just less of it)
+    if verdict == "WIDEN" and lots > 1:
+        log("WIDEN: halving size on macro day.")
+        lots = max(1, lots // 2)
     if c["maxloss_rs_1lot"] * lots > capital * TARGET_RISK_PCT * 1.5:
         log(f"min-lot risk too big (Rs{c['maxloss_rs_1lot']*lots:.0f}); skipping.")
         return

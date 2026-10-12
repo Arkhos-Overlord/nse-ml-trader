@@ -1,28 +1,32 @@
 {
-  "ts_ist": "2026-10-12T10:07:56",
+  "ts_ist": "2026-10-12T10:15:17",
   "position": {
     "underlying": "MARUTI",
     "lots": 1,
-    "credit_rs": 1117.0,
-    "mtm_pnl": -55.0,
-    "stop_level": -1787.0,
+    "credit_rs": 1078.0,
+    "mtm_pnl": -32.0,
+    "stop_level": -1724.0,
     "stop_breached": false,
     "mode": "PAPER"
   },
   "context": {
     "NIFTY50": {
-      "last": 22495.35,
-      "chg_pct": -0.11
+      "last": 22485.85,
+      "chg_pct": -0.15
     },
     "INDIAVIX": {
-      "last": 15.06,
-      "chg_pct": 4.73
+      "last": 15.1,
+      "chg_pct": 5.01
     },
     "NIFTYBANK": {
-      "last": 55036.55,
-      "chg_pct": -0.4
+      "last": 55052.55,
+      "chg_pct": -0.37
     }
   },
-  "log_age_s": 61,
-  "loop_healthy": true
+  "log_age_s": 47,
+  "loop_healthy": true,
+  "event_risk": {
+    "verdict": "WIDEN",
+    "why": "macro event within 7d: India CPI/IIP"
+  }
 }

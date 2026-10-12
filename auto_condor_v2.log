@@ -48,3 +48,17 @@
 [2026-10-12 10:05:53 IST] manage: MARUTI open, MTM P&L Rs-41 (credit Rs1117, stop -Rs1787)
 [2026-10-12 10:06:56 IST] manage: MARUTI open, MTM P&L Rs21 (credit Rs1117, stop -Rs1787)
 [2026-10-12 10:08:02 IST] manage: MARUTI open, MTM P&L Rs-55 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:09:09 IST] manage: MARUTI open, MTM P&L Rs-56 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:10:13 IST] manage: MARUTI open, MTM P&L Rs-40 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:11:16 IST] manage: MARUTI open, MTM P&L Rs-33 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:12:24 IST] manage: MARUTI open, MTM P&L Rs-69 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:13:27 IST] manage: MARUTI open, MTM P&L Rs-29 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:13:53 IST] EVENT GATE: WIDEN — macro event near; will widen wing + smaller size.
+[2026-10-12 10:14:24 IST] ENTER MARUTI: 1 lot(s) | credit Rs1078 | maxloss Rs422 (8% of capital) | IndiaVIX None
+[2026-10-12 10:14:25 IST]   SELL NSE:MARUTI26OCT11600CE x15 @ 171.20  [paper]
+[2026-10-12 10:14:25 IST]   BUY  NSE:MARUTI26OCT11700CE x15 @ 133.10  [paper]
+[2026-10-12 10:14:27 IST]   SELL NSE:MARUTI26OCT11400PE x15 @ 164.25  [paper]
+[2026-10-12 10:14:28 IST]   BUY  NSE:MARUTI26OCT11300PE x15 @ 130.50  [paper]
+[2026-10-12 10:14:30 IST] manage: MARUTI open, MTM P&L Rs-31 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:14:31 IST] position OPENED (PAPER).
+[2026-10-12 10:15:33 IST] manage: MARUTI open, MTM P&L Rs-112 (credit Rs1117, stop -Rs1787)
