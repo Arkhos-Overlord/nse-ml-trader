@@ -1,0 +1,28 @@
+{
+  "ts_ist": "2026-10-12T10:07:56",
+  "position": {
+    "underlying": "MARUTI",
+    "lots": 1,
+    "credit_rs": 1117.0,
+    "mtm_pnl": -55.0,
+    "stop_level": -1787.0,
+    "stop_breached": false,
+    "mode": "PAPER"
+  },
+  "context": {
+    "NIFTY50": {
+      "last": 22495.35,
+      "chg_pct": -0.11
+    },
+    "INDIAVIX": {
+      "last": 15.06,
+      "chg_pct": 4.73
+    },
+    "NIFTYBANK": {
+      "last": 55036.55,
+      "chg_pct": -0.4
+    }
+  },
+  "log_age_s": 61,
+  "loop_healthy": true
+}

@@ -1,0 +1,50 @@
+[2026-10-12 09:24:59 IST] === AUTO-CONDOR v2 | capital Rs5,000 | PAPER | STOCKS ===
+[2026-10-12 09:25:40 IST] ENTER MARUTI: 1 lot(s) | credit Rs1117 | maxloss Rs383 (8% of capital) | IndiaVIX None
+[2026-10-12 09:25:41 IST]   SELL NSE:MARUTI26OCT11500CE x15 @ 206.00  [paper]
+[2026-10-12 09:25:42 IST]   BUY  NSE:MARUTI26OCT11600CE x15 @ 162.00  [paper]
+[2026-10-12 09:25:43 IST]   SELL NSE:MARUTI26OCT11300PE x15 @ 144.00  [paper]
+[2026-10-12 09:25:44 IST]   BUY  NSE:MARUTI26OCT11200PE x15 @ 113.55  [paper]
+[2026-10-12 09:25:47 IST] position OPENED (PAPER).
+[2026-10-12 09:25:56 IST] === AUTO-CONDOR v2 | capital Rs5,000 | PAPER | STOCKS ===
+[2026-10-12 09:26:00 IST] manage: MARUTI open, MTM P&L Rs-92 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:26:25 IST] === AUTO-CONDOR v2 | capital Rs5,000 | PAPER | STOCKS ===
+[2026-10-12 09:26:29 IST] manage: MARUTI open, MTM P&L Rs-10 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:27:33 IST] manage: MARUTI open, MTM P&L Rs-73 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:28:37 IST] manage: MARUTI open, MTM P&L Rs-66 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:29:40 IST] manage: MARUTI open, MTM P&L Rs-32 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:30:43 IST] manage: MARUTI open, MTM P&L Rs-24 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:31:46 IST] manage: MARUTI open, MTM P&L Rs-17 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:32:49 IST] manage: MARUTI open, MTM P&L Rs-45 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:33:54 IST] manage: MARUTI open, MTM P&L Rs-80 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:34:57 IST] manage: MARUTI open, MTM P&L Rs-37 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:36:00 IST] manage: MARUTI open, MTM P&L Rs-53 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:37:05 IST] manage: MARUTI open, MTM P&L Rs39 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:38:09 IST] manage: MARUTI open, MTM P&L Rs4 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:39:12 IST] manage: MARUTI open, MTM P&L Rs29 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:40:16 IST] manage: MARUTI open, MTM P&L Rs-25 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:41:19 IST] manage: MARUTI open, MTM P&L Rs17 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:42:27 IST] manage: MARUTI open, MTM P&L Rs-43 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:43:31 IST] manage: MARUTI open, MTM P&L Rs-37 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:44:38 IST] manage: MARUTI open, MTM P&L Rs-88 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:45:42 IST] manage: MARUTI open, MTM P&L Rs-10 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:46:45 IST] manage: MARUTI open, MTM P&L Rs-3 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:47:49 IST] manage: MARUTI open, MTM P&L Rs-14 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:48:52 IST] manage: MARUTI open, MTM P&L Rs13 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:49:56 IST] manage: MARUTI open, MTM P&L Rs42 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:51:03 IST] manage: MARUTI open, MTM P&L Rs-10 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:52:07 IST] manage: MARUTI open, MTM P&L Rs-43 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:53:11 IST] manage: MARUTI open, MTM P&L Rs15 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:54:15 IST] manage: MARUTI open, MTM P&L Rs-18 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:55:19 IST] manage: MARUTI open, MTM P&L Rs-13 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:56:23 IST] manage: MARUTI open, MTM P&L Rs-122 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:57:27 IST] manage: MARUTI open, MTM P&L Rs-14 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:58:30 IST] manage: MARUTI open, MTM P&L Rs-41 (credit Rs1117, stop -Rs1787)
+[2026-10-12 09:59:34 IST] manage: MARUTI open, MTM P&L Rs-17 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:00:37 IST] manage: MARUTI open, MTM P&L Rs-115 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:01:40 IST] manage: MARUTI open, MTM P&L Rs-41 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:02:44 IST] manage: MARUTI open, MTM P&L Rs-36 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:03:47 IST] manage: MARUTI open, MTM P&L Rs-7 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:04:50 IST] manage: MARUTI open, MTM P&L Rs-16 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:05:53 IST] manage: MARUTI open, MTM P&L Rs-41 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:06:56 IST] manage: MARUTI open, MTM P&L Rs21 (credit Rs1117, stop -Rs1787)
+[2026-10-12 10:08:02 IST] manage: MARUTI open, MTM P&L Rs-55 (credit Rs1117, stop -Rs1787)

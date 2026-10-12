@@ -1,0 +1,45 @@
+{
+  "open": {
+    "underlying": "MARUTI",
+    "legs": {
+      "ce_short": {
+        "strike": 11500.0,
+        "ltp": 206,
+        "symbol": "NSE:MARUTI26OCT11500CE"
+      },
+      "ce_long": {
+        "strike": 11600.0,
+        "ltp": 162,
+        "symbol": "NSE:MARUTI26OCT11600CE"
+      },
+      "pe_short": {
+        "strike": 11300.0,
+        "ltp": 144,
+        "symbol": "NSE:MARUTI26OCT11300PE"
+      },
+      "pe_long": {
+        "strike": 11200.0,
+        "ltp": 113.55,
+        "symbol": "NSE:MARUTI26OCT11200PE"
+      }
+    },
+    "lots": 1,
+    "credit_rs": 1116.75,
+    "credit_pts": 74.45,
+    "lot": 15,
+    "opened": "2026-10-12T09:25:45",
+    "vix": null,
+    "mode": "PAPER"
+  },
+  "day": "2026-10-12",
+  "daily_pnl": 0.0,
+  "trades": [
+    {
+      "ts": "2026-10-12T09:25:45",
+      "underlying": "MARUTI",
+      "lots": 1,
+      "credit_rs": 1116.75,
+      "mode": "PAPER"
+    }
+  ]
+}
