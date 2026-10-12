@@ -1,0 +1,16 @@
+NIFTY_intraday_2024.parquet: 14,592,609 rows, 14 groups
+  group 1/14, kept 497
+  group 2/14, kept 1036
+  group 3/14, kept 1511
+  group 4/14, kept 2064
+  group 5/14, kept 2584
+  group 6/14, kept 3076
+  group 7/14, kept 3584
+  group 8/14, kept 4086
+  group 9/14, kept 4563
+  group 10/14, kept 5103
+  group 11/14, kept 5588
+  group 12/14, kept 6237
+  group 13/14, kept 6803
+  group 14/14, kept 7342
+  -> condor_bars_2024.parquet: 7342 rows, 62 days, 21 expiries
